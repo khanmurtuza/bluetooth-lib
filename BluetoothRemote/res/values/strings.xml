@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BluetoothRemote</string>
+    <string name="send">Send</string>
+    <string name="command_hint">Enter Command</string>
+	<string name="connect">Connect a device</string>
+	
+</resources>
