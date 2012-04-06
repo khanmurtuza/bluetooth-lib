@@ -5,13 +5,13 @@ Getting Started
 
 Step 1: Setup Android development Environment
 * Follow instruction on from [Installing the SDK Guide](http://developer.android.com/sdk/installing.html)
-* Clone the GitHub repository: git clone git://github.com/khanmurtuza/kinvey-bluetooth.git
+* Clone the GitHub repository: git clone git://github.com/khanmurtuza/bluetooth-lib.git
 
-Step 2: Create New KinveyBluetoothSDK Project
-* For the first time, you will need to create a new Android project for the Kinvey SDK source which can be reference from your app. This is only required once. Open Eclipse and create a new Android Project (File | New | Project | Android Project) for the Kinvey Android SDK Project source and later reference it from your app. Get the content by selecting Create project from existing source and specifying the kinvey directory from your git repository (~/kinvey-bluetooth/KinveyBluetoothSDK)
+Step 2: Create New BluetoothSDK Project
+* For the first time, you will need to create a new Android project for the Bluetooth SDK source which can be reference from your app. This is only required once. Open Eclipse and create a new Android Project (File | New | Project | Android Project) for the Bluetooth Android SDK Project source and later reference it from your app. Get the content by selecting Create project from existing source and specifying the Bluetooth directory from your git repository (~/bluetooth-lib/BluetoothSDK)
 
-Step 3: Add reference to the KinveyBluetoothSDK
-* Create a new Android project for your app or use your existing project and add a reference to the KinveyBluetoothSDK project. You do this by opening the properties window for your app (File | Properties | Android), pressing the Add... button in the Library area and selecting the KinveyBluetoothSDK project created above.
+Step 3: Add reference to the BluetoothSDK
+* Create a new Android project for your app or use your existing project and add a reference to the BluetoothSDK project. You do this by opening the properties window for your app (File | Properties | Android), pressing the Add... button in the Library area and selecting the BluetoothSDK project created above.
 
 Step 4: Modify the AndroidManifest.xml
 * In order to use Bluetooth features in your application, you need to declare at least one of two Bluetooth permissions: BLUETOOTH and BLUETOOTH_ADMIN.
