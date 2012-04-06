@@ -17,7 +17,6 @@ Step 4: Modify the AndroidManifest.xml
 * In order to use Bluetooth features in your application, you need to declare at least one of two Bluetooth permissions: BLUETOOTH and BLUETOOTH_ADMIN.
 
 
-
 Sample Applications
 ===============
 
