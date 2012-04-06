@@ -14,8 +14,11 @@ import com.kinvey.android.BluetoothConnectService;
 import com.kinvey.android.DeviceListDialog;
 import com.kinvey.android.DialogListener;
 import com.kinvey.android.R;
-import com.kinvey.android.RemoteBehavior;
 
+/**
+ * This is the main abstract Activity that can be used by clients to setup Bluetooth.
+ * It provides helper methods that can be used to find and connect devices.
+ */
 public abstract class BaseConnectActivity extends Activity {
 	private static final String TAG = "BaseConnectActivity";
 	
@@ -28,11 +31,9 @@ public abstract class BaseConnectActivity extends Activity {
 	protected StringBuffer mOutStringBuffer;
 	// Local Bluetooth adapter
 	protected BluetoothAdapter mBluetoothAdapter = null;
-	// Member object for the chat services
+	// Member object for the BT connect services
 	protected BluetoothConnectService mConnectService = null;
 	
-	private RemoteBehavior mRemoteBehavior;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public abstract class BaseConnectActivity extends Activity {
 		super.onStart();
 
 		// If BT is not on, request that it be enabled.
-		// setupChat() will then be called during onActivityResult
+		// setupSession() will then be called during onActivityResult
 		if (!mBluetoothAdapter.isEnabled()) {
 			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
@@ -81,9 +82,12 @@ public abstract class BaseConnectActivity extends Activity {
 		}
 	}
 
+	/**
+	 * create a new bluetooth connection
+	 */
 	private void setupSession() {
 
-		// Initialize the BluetoothChatService to perform bluetooth connections
+		// Initialize the BluetoothConnectService to perform bluetooth connections
 		mConnectService = new BluetoothConnectService(this, mHandler);
 
 		// Initialize the buffer for outgoing messages
@@ -94,10 +98,13 @@ public abstract class BaseConnectActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // Stop the Bluetooth chat services
+        // Stop the Bluetooth connect services
         if (mConnectService != null) mConnectService.stop();
     }
 
+    /**
+     * Helper method to start discovering devices. 
+     */
     protected void ensureDiscoverable() {
         if (mBluetoothAdapter.getScanMode() !=
             BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
@@ -120,7 +127,7 @@ public abstract class BaseConnectActivity extends Activity {
 
         // Check that there's actually something to send
         if (message.length() > 0) {
-            // Get the message bytes and tell the BluetoothChatService to write
+            // Get the message bytes and tell the BluetoothConnectService to write
             byte[] send = message.getBytes();
             mConnectService.write(send);
 
@@ -189,7 +196,7 @@ public abstract class BaseConnectActivity extends Activity {
         }
     }	
 
-	// The Handler that gets information back from the BluetoothChatService
+	// The Handler that gets information back from the BluetoothConnectService
 	private final Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -228,14 +235,26 @@ public abstract class BaseConnectActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * Callback that will be invoked when Bluetooth connectivity state changes
+	 * @param connectionState Message types sent from the BluetoothConnectService Handler
+	 */
 	public void onConnectionStatusUpdate(int connectionState) {
-		// no action
+		Log.d(TAG, "Connectivity changed  : " + connectionState);
 	}
     
+	/**
+	 * Callback that will be called after message was sent successfully.
+	 * @param message data that was sent to remote device
+	 */
 	public void onWriteSuccess(String message) {
-		// no action
+		Log.d(TAG, "Response message : " + message);
 	}
 	
+    /**
+     * Callback that will be invoked when new message is received
+     * @param message new message string
+     */
     public abstract void onNewMessage(String message);
     
 

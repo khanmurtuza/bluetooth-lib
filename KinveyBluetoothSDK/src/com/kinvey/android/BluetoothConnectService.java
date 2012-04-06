@@ -44,20 +44,20 @@ public class BluetoothConnectService {
     private static final String TAG = "BluetoothConnectService";
 
     // Name for the SDP record when creating server socket
-    private static final String NAME_SECURE = "BluetoothChatSecure";
+    private static final String NAME_SECURE = "BluetoothConnectSecure";
 
     // Unique UUID for this application
     private static final UUID MY_UUID_SECURE =
         UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     
-    // Message types sent from the BluetoothChatService Handler
+    // Message types sent from the BluetoothConnectService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
     
-    // Key names received from the BluetoothChatService Handler
+    // Key names received from the BluetoothConnectService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
 
@@ -76,7 +76,7 @@ public class BluetoothConnectService {
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
 
     /**
-     * Constructor. Prepares a new BluetoothChat session.
+     * Constructor. Prepares a new BluetoothConnect session.
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
@@ -87,7 +87,7 @@ public class BluetoothConnectService {
     }
 
     /**
-     * Set the current state of the chat connection
+     * Set the current state of the connection
      * @param state  An integer defining the current connection state
      */
     private synchronized void setState(int state) {
@@ -104,7 +104,7 @@ public class BluetoothConnectService {
     }
 
     /**
-     * Start the chat service. Specifically start AcceptThread to begin a
+     * Start the connectivity service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume() */
     public synchronized void start() {
 
